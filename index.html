@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>Pittsburgh Restaurants</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,700">
+      <link rel="stylesheet" href="style.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="sidebar">
+
+        <h3 class="sidebar-title">Search Restaurant</h3>
+        <input id="search-input" type="text" data-bind="textInput: searchInput">
+        <button data-bind="click: searchShop">Search</button>
+
+        <h3 class="sidebar-title">Select filter</h3>
+        <div id="filter-section">
+          <button id="American" class="filter-button" data-bind="click: filterHandler">USA</button>
+          <button id="Chinese" class="filter-button" data-bind="click: filterHandler">CHI</button>
+          <button id="Japanese" class="filter-button" data-bind="click: filterHandler">JAP</button>
+          <button id="Mexican" class="filter-button" data-bind="click: filterHandler">MEX</button>
+          <button id="Coffee" class="filter-button" data-bind="click: filterHandler">CAFE</button>
+        </div>
+
+        <ul id="shop-list" data-bind="foreach: shopList">
+          <li data-bind="click: $parent.clickListHandler" class="shop-list-item">
+              <span data-bind="text: name"></span>
+          </li>
+        </ul>
+
+        <h3 class="sidebar-title">Random restaurant from list</h3>
+        <button data-bind="click: randomShop">Random restaurant</button>
+
+      </div>
+      <div class="main">
+        <div class="title-bar">Pittsburgh's Restaurant</div>
+        <div id="map"></div>
+      </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRsEYlPZvu0KnELxRW44R_wnpdre4C0c8&v=3"></script>
+    <script src="js/appModel.js"></script>
+    <script src="js/appVM.js"></script>
+    <!-- <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRsEYlPZvu0KnELxRW44R_wnpdre4C0c8&v=3&callback=init">
+    </script> -->
+  </body>
+</html>
