@@ -25,7 +25,7 @@ function getRecommendShop(data) {
                 .then(function(res) {
                     resArr.push(res.response);
                 })
-            )
+            );
         });
         return Promise.all(promises).then(function() {
             return resArr;
@@ -34,7 +34,7 @@ function getRecommendShop(data) {
     .catch(function(err) {
         const messege = `Cannot get recommended shop\n${err}`;
         alert(messege);
-    })
+    });
 }
 
 // This function is a async function that will receieve search input as string and return an array of matching shops.
@@ -64,7 +64,7 @@ function searchShop(input) {
     .catch(function(err) {
         const messege = `Cannot search shop\n${err}`;
         alert(messege);
-    })
+    });
 }
 
 // This function is a async function that will receieve shop's id and return an object that contains information of that shop.
@@ -80,6 +80,6 @@ function getVenueDetail(venueId) {
     .catch(function(err) {
         const messege = `Cannot get shop's detail\n${err}`;
         alert(messege);
-    })
+    });
 }
 
