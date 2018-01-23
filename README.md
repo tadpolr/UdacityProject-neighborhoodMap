@@ -10,8 +10,8 @@ Pittsburgh's Restaurants is an application that will give you a list of recommen
 
 # Customize app
 
-* Increase number of shops in list by chaging value of **const limitRes** in **appModel.js**
-* Expand searching area by chaging value of **const radius** in **appModel.js**
+* Increase number of shops in list by chaging value of `const limitRes` in **appModel.js**
+* Expand searching area by chaging value of `const radius` in **appModel.js**
 
 # Api used in app
 
