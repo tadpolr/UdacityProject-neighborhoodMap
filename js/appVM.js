@@ -1,5 +1,5 @@
 function AppViewModel() {
-    const self = this
+    const self = this;
 
     // These arrays are used to store markers and infoWindows that are created by createMarker function.
     let markers = ko.observableArray();
@@ -10,32 +10,32 @@ function AppViewModel() {
     self.createMarker = function(shops) {
         // Remove all existing markers
         markers().forEach(e => {
-            e.setMap(null)
+            e.setMap(null);
         });
-        markers.removeAll()
+        markers.removeAll();
 
         // This function is used to stop all markers animation and start bouncing selected marker. 
         function toggleBounce(marker) {
             markers().forEach(e => {
-                e.setAnimation(null)
+                e.setAnimation(null);
             });
             marker.setAnimation(google.maps.Animation.BOUNCE);
         }
 
         // Create markers by looping on shops array
         for (let i = 0; i < shops.length; i++) {
-            const shop = shops[i]
-            const shopInfo = shop.venue
-            const lat = shopInfo.location.lat
-            const lng = shopInfo.location.lng
+            const shop = shops[i];
+            const shopInfo = shop.venue;
+            const lat = shopInfo.location.lat;
+            const lng = shopInfo.location.lng;
             
             const marker = new google.maps.Marker({
                 position: {lat, lng},
                 map: map,
                 animation: google.maps.Animation.DROP,
                 title: shopInfo.name
-            })
-            markers.push(marker)
+            });
+            markers.push(marker);
             
             // Create an infoWindow containing shop's information.
             const infoWindow = new google.maps.InfoWindow({
@@ -47,17 +47,17 @@ function AppViewModel() {
                 </p>
                 `
             });
-            infoWindows.push(infoWindow)
+            infoWindows.push(infoWindow);
             
             // Set event's listener for clicking marker.
             marker.addListener('click', function() {
                 
                 // Make clicked marker bounce
-                toggleBounce(marker)
+                toggleBounce(marker);
 
                 // Hidden all showing infoWindows and open current shop infoWindow.
                 infoWindows().forEach(e => {
-                    e.close()
+                    e.close();
                 });
                 infoWindow.open(map, marker);
             });
@@ -67,10 +67,10 @@ function AppViewModel() {
     // This array store shopLists that are created by createShopList function.
     self.shopList = ko.observableArray()
     self.createShopList = function(shops) {
-        self.shopList.removeAll()
+        self.shopList.removeAll();
         shops.forEach(e => {
-            self.shopList.push(e.venue)
-        })
+            self.shopList.push(e.venue);
+        });
     }
 
     // This function is used to automatically click marker when user click the shopList with the same shop's information.
@@ -79,19 +79,19 @@ function AppViewModel() {
             if (data.name === e.title) {
                 google.maps.event.trigger(e, 'click');
             }
-        })
+        });
     }
 
     // This variable bind with input DOM element and its value will be used to search for shops. 
-    self.searchInput = ko.observable()
+    self.searchInput = ko.observable();
     // This function will search for shops that match the input value by sending a foursquare's api request to foursquare api.
     self.searchShop = function(){
-        const input = self.searchInput()
+        const input = self.searchInput();
 
         searchShop(input)
         .then(function(res) {
-            self.createMarker(res)
-            self.createShopList(res)
+            self.createMarker(res);
+            self.createShopList(res);
         })
     }
 
@@ -100,14 +100,14 @@ function AppViewModel() {
     self.filterHandler = function(data, event) {
         getRecommendShop(event.target.id)
         .then(function(res) {
-            self.createMarker(res)
-            self.createShopList(res)
+            self.createMarker(res);
+            self.createShopList(res);
         })
     };
 
     // This function will pick one shop randomly from markers.
     self.randomShop = function() {
-        const ranNum = Math.round(( Math.random() * markers().length ) - 1)
+        const ranNum = Math.round(( Math.random() * markers().length ) - 1);
         google.maps.event.trigger(markers()[ranNum], 'click');
     }
 
@@ -122,11 +122,11 @@ function AppViewModel() {
         });
         getRecommendShop()
         .then(function(res) {
-            self.createMarker(res)
-            self.createShopList(res)
+            self.createMarker(res);
+            self.createShopList(res);
         })
     }
-    init()
+    init();
 }
 
 ko.applyBindings(new AppViewModel());

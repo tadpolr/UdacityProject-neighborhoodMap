@@ -1,39 +1,39 @@
 // These constant are default value of the required fields in foursquare api requests.
-const id = "X01ZQHEHKO1O14NOV2K0CNNMZ1YTPDL4M2XSFQXYBLHLTBMT"
-const secret = "TCLRD3UZQD3JHYN0FGQFY00YOEABVAOXE2UCH2G0MXDYZYOY"
-const v = 20180114
-const ll = "40.443520,-79.942936"
-const limitRes = 10
-const radius = 2500
+const id = "X01ZQHEHKO1O14NOV2K0CNNMZ1YTPDL4M2XSFQXYBLHLTBMT";
+const secret = "TCLRD3UZQD3JHYN0FGQFY00YOEABVAOXE2UCH2G0MXDYZYOY";
+const v = 20180114;
+const ll = "40.443520,-79.942936";
+const limitRes = 10;
+const radius = 2500;
 
 // This function is a async function that will receieve shop catagory as string and return an array of recommended shops.
 function getRecommendShop(data) {
-    const catagory = data ? data : "food"
+    const catagory = data ? data : "food";
     return fetch(
         `https://api.foursquare.com/v2/venues/explore?client_id=${id}&client_secret=${secret}&ll=${ll}&v=${v}&limit=${limitRes}&radius=${radius}&query=${catagory}`,
         {method: 'GET'}
     )
     .then(function(res) {
-        return res.json()
+        return res.json();
     })
     .then(function(res) {
-        let promises = []
-        let resArr = []
+        let promises = [];
+        let resArr = [];
         res.response.groups[0].items.forEach(e => {
             promises.push(
                 getVenueDetail(e.venue.id)
                 .then(function(res) {
-                    resArr.push(res.response)
+                    resArr.push(res.response);
                 })
             )
         });
         return Promise.all(promises).then(function() {
-            return resArr
-        })
+            return resArr;
+        });
     })
     .catch(function(err) {
-        const messege = `Cannot get recommended shop\n${err}`
-        alert(messege)
+        const messege = `Cannot get recommended shop\n${err}`;
+        alert(messege);
     })
 }
 
@@ -44,26 +44,26 @@ function searchShop(input) {
         {method: 'GET'}
     )
     .then(function(res) {
-        return res.json()
+        return res.json();
     })
     .then(function(res) {
-        let promises = []
-        let resArr = []
+        let promises = [];
+        let resArr = [];
         res.response.venues.forEach(e => {
             promises.push(
                 getVenueDetail(e.id)
                 .then(function(res) {
-                    resArr.push(res.response)
+                    resArr.push(res.response);
                 })
-            )
+            );
         });
         return Promise.all(promises).then(function(){
-            return resArr
-        })
+            return resArr;
+        });
     })
     .catch(function(err) {
-        const messege = `Cannot search shop\n${err}`
-        alert(messege)
+        const messege = `Cannot search shop\n${err}`;
+        alert(messege);
     })
 }
 
@@ -75,11 +75,11 @@ function getVenueDetail(venueId) {
         {method: 'GET'}
     )
     .then(function(res) {
-        return res.json()
+        return res.json();
     })
     .catch(function(err) {
-        const messege = `Cannot get shop's detail\n${err}`
-        alert(messege)
+        const messege = `Cannot get shop's detail\n${err}`;
+        alert(messege);
     })
 }
 
