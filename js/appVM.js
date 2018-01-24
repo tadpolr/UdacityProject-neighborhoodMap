@@ -126,7 +126,8 @@ function AppViewModel() {
             self.createShopList(res);
         })
     }
-    init();
+    AppViewModel.init = init;
+    // init();
 }
 
 ko.applyBindings(new AppViewModel());
