@@ -173,7 +173,7 @@ function AppViewModel() {
 ko.applyBindings(new AppViewModel());
 
 // This function is used to handle when google map api cannot load.
-function googleLoadedError() {
-    const messege = `google map is unable to load.\n${err}`;
+function googleLoadedError(err) {
+    const messege = `google map is unable to load.`;
     alert(messege);
 }
